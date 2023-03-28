@@ -1,15 +1,14 @@
 package ms.learnings.orderservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class InventoryResponse {
     private String skuCode;
+    @EqualsAndHashCode.Exclude
     private boolean isInStock;
 }

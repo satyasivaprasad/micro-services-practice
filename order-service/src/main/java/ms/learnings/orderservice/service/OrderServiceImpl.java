@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
                 .map(OrderLineItems::getSkuCode)
                 .collect(Collectors.toSet());
 
-        List<InventoryResponse> inventoryResponses = inventoryClient.getSkuCodes(skuCodes);
+        Set<InventoryResponse> inventoryResponses = inventoryClient.getSkuCodes(skuCodes);
         boolean allProductsInStock = inventoryResponses.stream().allMatch(InventoryResponse::isInStock);
 
         if (inventoryResponses.isEmpty() || !allProductsInStock) {

@@ -11,5 +11,5 @@ import java.util.Set;
 public interface InventoryClient {
 
     @GetMapping("/inventory")
-    List<InventoryResponse> getSkuCodes(@RequestParam("skuCode") Set<String> includes);
+    Set<InventoryResponse> getSkuCodes(@RequestParam("skuCode") Set<String> includes);
 }
