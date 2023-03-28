@@ -11,19 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
-@Service
-@RequiredArgsConstructor
-public class OrderService {
-    private final OrderRepository orderRepository;
 
-    public void placeOrder(OrderRequest orderRequest) {
-        Order order = new Order();
-        order.setOrderNumber(UUID.randomUUID().toString());
+public interface OrderService {
 
-        List<OrderLineItems> orderLineItems = OrderMapper.INSTANCE.mapOrderLineItems(orderRequest.getOrderLineItemsDtoList());
-
-        order.setOrderLineItems(orderLineItems);
-        orderRepository.save(order);
-
-    }
+    public void placeOrder(OrderRequest orderRequest);
 }
