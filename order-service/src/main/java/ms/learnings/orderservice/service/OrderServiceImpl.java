@@ -12,7 +12,9 @@ import ms.learnings.orderservice.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,9 +33,9 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderLineItems(orderLineItems);
 
-        List<String> skuCodes = order.getOrderLineItems().stream()
+        Set<String> skuCodes = order.getOrderLineItems().stream()
                 .map(OrderLineItems::getSkuCode)
-                .toList();
+                .collect(Collectors.toSet());
 
         List<InventoryResponse> inventoryResponses = inventoryClient.getSkuCodes(skuCodes);
         boolean allProductsInStock = inventoryResponses.stream().allMatch(InventoryResponse::isInStock);
