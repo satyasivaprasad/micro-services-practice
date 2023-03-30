@@ -40,7 +40,6 @@ subprojects {
         implementation "org.mapstruct:mapstruct:${mapstructVersion}"
         annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
-        implementation 'org.springframework.boot:spring-boot-starter-web'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
