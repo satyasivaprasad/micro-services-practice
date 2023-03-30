@@ -9,6 +9,7 @@ import ms.learnings.orderservice.mapper.OrderMapper;
 import ms.learnings.orderservice.model.Order;
 import ms.learnings.orderservice.model.OrderLineItems;
 import ms.learnings.orderservice.repository.OrderRepository;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
