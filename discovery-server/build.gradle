@@ -26,6 +26,9 @@ dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.0.5'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
