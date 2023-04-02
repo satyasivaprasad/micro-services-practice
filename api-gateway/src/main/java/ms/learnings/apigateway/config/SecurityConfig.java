@@ -22,14 +22,4 @@ public class SecurityConfig {
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
         return serverHttpSecurity.build();
     }
-
-//    @Bean
-//    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable()
-//                .authorizeHttpRequests()
-//                .anyRequest().authenticated()
-//                .and()
-//                .httpBasic();
-//        return http.build();
-//    }
 }
