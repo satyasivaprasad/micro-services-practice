@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     @Override
-    public void placeOrder(OrderRequest orderRequest) {
+    public String placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
 
@@ -45,6 +45,7 @@ public class OrderServiceImpl implements OrderService {
             throw new IllegalArgumentException("Product is not in stock, please try again later");
         } else {
             orderRepository.save(order);
+            return "Order placed successfully";
         }
     }
 }
