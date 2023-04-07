@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/inventory-service?createDatabaseIfNotExist=true
+    password: password
+  application:
+    name: inventory-service
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+server:
+  port: '0'
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:password@localhost:8761/eureka/
