@@ -1,0 +1,61 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/order-service?createDatabaseIfNotExist=true
+    password: password
+  application:
+    name: order-service
+  cloud:
+    openfeign:
+      client:
+        config:
+          inventory-service:
+            name: inventory-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: '8081'
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:password@localhost:8761/eureka/
+
+
+feign:
+  circuitbreaker:
+    enabled: true
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    circuitbreakers:
+      enabled: true
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventory:
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        event-consumer-buffer-size: 10
+        failureRateThreshold: 50
+        permittedNumberOfCallsInHalfOpenState: 3
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        slidingWindowType: COUNT_BASED
+        waitDurationInOpenState: 5s
+  retry:
+    instances:
+      inventory:
+        max-attempts: 3
+        wait-duration: 5s
+  timelimiter:
+    instances:
+      inventory:
+        timeout-duration: 3s
