@@ -5,11 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import ms.learnings.orderservice.client.InventoryClient;
 import ms.learnings.orderservice.dto.InventoryResponse;
 import ms.learnings.orderservice.dto.OrderRequest;
+import ms.learnings.orderservice.event.OrderPlacedEvent;
 import ms.learnings.orderservice.mapper.OrderMapper;
 import ms.learnings.orderservice.model.Order;
 import ms.learnings.orderservice.model.OrderLineItems;
 import ms.learnings.orderservice.repository.OrderRepository;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class OrderServiceImpl implements OrderService {
     private final InventoryClient inventoryClient;
 
     private final OrderRepository orderRepository;
+    private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
     @Override
     public String placeOrder(OrderRequest orderRequest) {
@@ -45,6 +48,9 @@ public class OrderServiceImpl implements OrderService {
             throw new IllegalArgumentException("Product is not in stock, please try again later");
         } else {
             orderRepository.save(order);
+            OrderPlacedEvent orderPlacedEvent = new OrderPlacedEvent();
+            orderPlacedEvent.setOrderNumber(order.getOrderNumber());
+            kafkaTemplate.send("notificationTopic", orderPlacedEvent);
             return "Order placed successfully";
         }
     }
